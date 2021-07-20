@@ -10,6 +10,8 @@ import UIKit
 class ViewController: UIViewController, UITextFieldDelegate {
 
     var isObserving = false
+    var safeAreaBottom: CGFloat?
+    
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var messageSenderView: UIView!
     
@@ -35,15 +37,21 @@ class ViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        safeAreaBottom = self.view.safeAreaInsets.bottom
+    }
+    
     
     @objc func keyboardWillShow(notification: Notification) {
         // キーボードのフレーム値を取得
         let rect = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
         // キーボードのアニメーションの時間を取得
         let duration:TimeInterval? = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double
-        if let rect = rect, let duration = duration {
+        if let rect = rect, let duration = duration, let safeAreaBottom = safeAreaBottom {
             UIView.animate(withDuration: duration) {
-                let transform = CGAffineTransform(translationX: 0, y: -rect.size.height)
+                let transformSize = rect.size.height - safeAreaBottom
+                let transform = CGAffineTransform(translationX: 0, y: -transformSize)
                 self.messageSenderView.transform = transform
             }
         }
