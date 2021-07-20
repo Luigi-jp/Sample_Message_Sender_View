@@ -20,7 +20,7 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="770"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E1J-Yz-kDd" userLabel="Message Input View">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E1J-Yz-kDd" userLabel="Message Sender View">
                                 <rect key="frame" x="0.0" y="814" width="414" height="48"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="bcw-zZ-K9y">
@@ -73,6 +73,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="messageSenderView" destination="E1J-Yz-kDd" id="qKC-Om-kwH"/>
                         <outlet property="textView" destination="e7Z-Tg-wjs" id="5z5-De-O2q"/>
                     </connections>
                 </viewController>

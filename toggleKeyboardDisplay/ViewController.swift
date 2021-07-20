@@ -11,6 +11,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
     var isObserving = false
     @IBOutlet weak var textView: UITextView!
+    @IBOutlet weak var messageSenderView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,12 +37,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     
     @objc func keyboardWillShow(notification: Notification) {
+        // キーボードのフレーム値を取得
         let rect = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+        // キーボードのアニメーションの時間を取得
         let duration:TimeInterval? = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double
         if let rect = rect, let duration = duration {
             UIView.animate(withDuration: duration) {
                 let transform = CGAffineTransform(translationX: 0, y: -rect.size.height)
-                self.view.transform = transform
+                self.messageSenderView.transform = transform
             }
         }
     }
@@ -50,7 +53,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         let duration = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double)
         if let duration = duration {
             UIView.animate(withDuration: duration) {
-                self.view.transform = CGAffineTransform.identity
+                self.messageSenderView.transform = CGAffineTransform.identity
             }
         }
     }
